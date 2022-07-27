@@ -18,4 +18,6 @@ public class Ponto {
     private LocalDateTime hora;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "ponto")
     private List<Tarefa> tarefas;
+    @Transient
+    private Integer horasTrabalhadas;
 }
