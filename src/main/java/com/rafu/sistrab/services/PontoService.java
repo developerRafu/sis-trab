@@ -1,6 +1,7 @@
 package com.rafu.sistrab.services;
 
 import com.rafu.sistrab.domain.Ponto;
+import com.rafu.sistrab.errors.NotFoundException;
 import com.rafu.sistrab.repositories.PontoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,16 @@ public class PontoService {
     }
 
     public Ponto insert(Ponto entity) {
+        return repository.save(entity);
+    }
+
+    public Ponto update(Ponto entity) {
+        final var pontoFound = findById(entity.getId());
+
+        if (pontoFound.isEmpty()) {
+            throw new NotFoundException(Ponto.class.getName());
+        }
+
         return repository.save(entity);
     }
 }
