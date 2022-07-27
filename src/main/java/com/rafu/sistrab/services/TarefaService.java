@@ -3,6 +3,8 @@ package com.rafu.sistrab.services;
 import com.rafu.sistrab.domain.Tarefa;
 import com.rafu.sistrab.errors.NotFoundException;
 import com.rafu.sistrab.repositories.TarefaRepository;
+import com.rafu.sistrab.rest.dto.RelatorioTarefa;
+import com.rafu.sistrab.rest.dto.RelatorioTarefasDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -68,5 +71,34 @@ public class TarefaService {
 
 
         return repository.saveAll(tarefasToSave);
+    }
+
+    public RelatorioTarefasDto getRelatorio() {
+        final var tarefas = repository.findAll();
+        final var relatorio = new RelatorioTarefasDto();
+
+        final var total = tarefas.stream()
+                .map(Tarefa::getHoras)
+                .map(BigDecimal::valueOf)
+                .map(value -> value.multiply(BigDecimal.valueOf(70)))
+                .reduce(BigDecimal::add)
+                .orElse(BigDecimal.ZERO);
+
+        relatorio.setTotal(total);
+
+        relatorio.setHoras(tarefas.stream().mapToLong(Tarefa::getHoras).sum());
+
+        final var relatoriosTarefas = tarefas.stream().map(tarefa -> {
+            final var relatorioTarefa = new RelatorioTarefa();
+            relatorioTarefa.setCodigo(tarefa.getCodigo());
+            relatorioTarefa.setHoras(tarefa.getHoras().longValue());
+            relatorioTarefa.setTotal(BigDecimal.valueOf(70).multiply(BigDecimal.valueOf(tarefa.getHoras())));
+            relatorioTarefa.setDescricao(tarefa.getDescricao());
+            return relatorioTarefa;
+        }).collect(Collectors.toList());
+
+        relatorio.setRelatorioTarefa(relatoriosTarefas);
+
+        return relatorio;
     }
 }

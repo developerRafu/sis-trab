@@ -3,6 +3,7 @@ package com.rafu.sistrab.controllers;
 import com.rafu.sistrab.domain.Tarefa;
 import com.rafu.sistrab.errors.NotFoundException;
 import com.rafu.sistrab.mappers.TarefaMapper;
+import com.rafu.sistrab.rest.dto.RelatorioTarefasDto;
 import com.rafu.sistrab.rest.dto.TarefaDto;
 import com.rafu.sistrab.services.TarefaService;
 import lombok.RequiredArgsConstructor;
@@ -65,5 +66,10 @@ public class TarefaController {
     public ResponseEntity<List<TarefaDto>> saveMulti(@RequestBody @Valid @NotNull List<TarefaDto> dtos) {
         final var tarefas = service.saveAll(dtos.stream().map(mapper::toEntity).collect(Collectors.toList()));
         return ResponseEntity.ok().body(tarefas.stream().map(mapper::toDto).collect(Collectors.toList()));
+    }
+
+    @GetMapping("relatorio")
+    public ResponseEntity<RelatorioTarefasDto> getRelatorio(){
+        return ResponseEntity.ok().body(service.getRelatorio());
     }
 }
