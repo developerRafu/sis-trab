@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PontoService {
@@ -17,5 +19,9 @@ public class PontoService {
     public Page<Ponto> findAllPageable(int page) {
         Pageable pageable = PageRequest.of(page, 10);
         return repository.findAll(pageable);
+    }
+
+    public Optional<Ponto> findById(final Long id) {
+        return repository.findById(id);
     }
 }
