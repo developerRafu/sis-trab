@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/v1/pontos")
@@ -29,5 +32,16 @@ public class PontoController {
         return service.findById(id)
                 .map(p -> ResponseEntity.ok().body(mapper.toDto(p)))
                 .orElseThrow(() -> new NotFoundException(Ponto.class.getName()));
+    }
+
+    @PostMapping
+    public ResponseEntity<URI> post(@RequestBody final PontoDto dto) {
+        final var entity = service.insert(mapper.toEntity(dto));
+
+        final var uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}").buildAndExpand(entity.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
     }
 }

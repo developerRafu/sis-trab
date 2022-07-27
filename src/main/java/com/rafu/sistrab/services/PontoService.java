@@ -24,4 +24,8 @@ public class PontoService {
     public Optional<Ponto> findById(final Long id) {
         return repository.findById(id);
     }
+
+    public Ponto insert(Ponto entity) {
+        return repository.save(entity);
+    }
 }

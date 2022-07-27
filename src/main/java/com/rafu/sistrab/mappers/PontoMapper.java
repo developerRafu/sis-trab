@@ -8,4 +8,6 @@ import org.springframework.stereotype.Component;
 @Mapper(componentModel = "spring")
 public interface PontoMapper {
     PontoDto toDto(final Ponto ponto);
+
+    Ponto toEntity(PontoDto dto);
 }
