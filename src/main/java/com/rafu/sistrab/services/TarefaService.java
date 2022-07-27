@@ -10,7 +10,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -38,5 +41,25 @@ public class TarefaService {
         }
 
         return repository.save(entity);
+    }
+
+    public List<Tarefa> saveAll(final List<Tarefa> tarefas) {
+        final var codigos = tarefas.stream().map(Tarefa::getCodigo).collect(Collectors.toList());
+        final var tarefasFound = repository.findAllByCodigo(codigos);
+
+        final List<Tarefa> tarefasToSave = new ArrayList<>();
+
+        tarefasToSave.addAll(tarefas);
+        for (Tarefa tarefaToSave : tarefasToSave) {
+            for (Tarefa tarefaFound : tarefasFound) {
+                if (tarefaToSave.getCodigo().equals(tarefaFound.getCodigo())) {
+                    tarefaToSave.setId(tarefaFound.getId());
+                    tarefaToSave.setCodigo(tarefaFound.getCodigo());
+                }
+            }
+        }
+
+
+        return repository.saveAll(tarefasToSave);
     }
 }

@@ -9,4 +9,5 @@ public class TarefaDto {
     private Long id;
     private String descricao;
     private Integer codigo;
+    private Integer horas;
 }

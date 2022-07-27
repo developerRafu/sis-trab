@@ -17,6 +17,5 @@ public class Tarefa {
     private String descricao;
     @Column(nullable = false)
     private Integer codigo;
-    @ManyToOne
-    private Ponto ponto;
+    private Integer horas;
 }

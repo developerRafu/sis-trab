@@ -12,7 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/tarefas")
@@ -20,6 +23,7 @@ import javax.validation.constraints.NotNull;
 public class TarefaController {
     private final TarefaService service;
     private final TarefaMapper mapper;
+    private static final String PATH_ID = "/{id}";
 
     @GetMapping
     public ResponseEntity<Page<TarefaDto>> getPage(@RequestParam(required = false) final int page) {
@@ -40,7 +44,7 @@ public class TarefaController {
 
         final var uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id}").buildAndExpand(entity.getId()).toUri();
+                .path(PATH_ID).buildAndExpand(entity.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
     }
@@ -52,8 +56,14 @@ public class TarefaController {
 
         final var uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id}").buildAndExpand(entity.getId()).toUri();
+                .path(PATH_ID).buildAndExpand(entity.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @PostMapping("multi")
+    public ResponseEntity<List<TarefaDto>> saveMulti(@RequestBody @Valid @NotNull List<TarefaDto> dtos) {
+        final var tarefas = service.saveAll(dtos.stream().map(mapper::toEntity).collect(Collectors.toList()));
+        return ResponseEntity.ok().body(tarefas.stream().map(mapper::toDto).collect(Collectors.toList()));
     }
 }
