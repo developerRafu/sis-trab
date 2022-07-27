@@ -30,7 +30,14 @@ public class TarefaService {
     }
 
     public Tarefa insert(Tarefa entity) {
-        return repository.save(entity);
+        return repository
+                .findByCodigo(entity.getCodigo())
+                .map(tarefa -> {
+                    tarefa.setDescricao(entity.getDescricao());
+                    tarefa.setHoras(Math.addExact(tarefa.getHoras(), entity.getHoras()));
+                    return repository.save(tarefa);
+                })
+                .orElse(repository.save(entity));
     }
 
     public Tarefa update(Tarefa entity) {
