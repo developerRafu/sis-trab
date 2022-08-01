@@ -64,12 +64,22 @@ public class TarefaController {
 
     @PostMapping("multi")
     public ResponseEntity<List<TarefaDto>> saveMulti(@RequestBody @Valid @NotNull List<TarefaDto> dtos) {
-        final var tarefas = service.saveAll(dtos.stream().map(mapper::toEntity).collect(Collectors.toList()));
+        final var tarefas = service.saveAll(dtos.stream().map(mapper::convert).collect(Collectors.toList()));
         return ResponseEntity.ok().body(tarefas.stream().map(mapper::toDto).collect(Collectors.toList()));
     }
 
     @GetMapping("relatorio")
     public ResponseEntity<RelatorioTarefasDto> getRelatorio(){
         return ResponseEntity.ok().body(service.getRelatorio());
+    }
+
+    @GetMapping("relatorio/plano")
+    public ResponseEntity<String> getRelatorioPlano(){
+        return ResponseEntity.ok().body(service.getRelatorioPlano());
+    }
+
+    @GetMapping("relatorio/atividade")
+    public ResponseEntity<String> getRelatorioAtividades(){
+        return ResponseEntity.ok().body(service.getRelatorioAtividades());
     }
 }

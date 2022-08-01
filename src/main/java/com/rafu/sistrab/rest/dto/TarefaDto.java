@@ -10,4 +10,8 @@ public class TarefaDto {
     private String descricao;
     private Integer codigo;
     private Integer horas;
+    private String evento;
+    private String inicio;
+    private String fim;
+    private int atividadeId;
 }

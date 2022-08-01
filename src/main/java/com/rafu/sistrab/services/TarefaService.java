@@ -94,11 +94,46 @@ public class TarefaService {
             relatorioTarefa.setHoras(tarefa.getHoras().longValue());
             relatorioTarefa.setTotal(BigDecimal.valueOf(70).multiply(BigDecimal.valueOf(tarefa.getHoras())));
             relatorioTarefa.setDescricao(tarefa.getDescricao());
+            relatorioTarefa.setInicio(tarefa.getInicio());
+            relatorioTarefa.setFim(tarefa.getFim());
+            relatorioTarefa.setEvento(tarefa.getEvento());
+            relatorioTarefa.setAtividade(tarefa.getAtividade().getDescricao());
             return relatorioTarefa;
         }).collect(Collectors.toList());
 
         relatorio.setRelatorioTarefa(relatoriosTarefas);
 
         return relatorio;
+    }
+
+    public String getRelatorioPlano() {
+        final var relatorio = getRelatorio();
+        final var sb = new StringBuilder();
+        for (RelatorioTarefa relatorioTarefa : relatorio.getRelatorioTarefa()) {
+            sb.append("- Redmine ")
+                    .append("#")
+                    .append(relatorioTarefa.getCodigo())
+                    .append(" - ")
+                    .append(relatorioTarefa.getDescricao())
+                    .append(String.format(" (%s a %s)", relatorioTarefa.getInicio(), relatorioTarefa.getFim()))
+                    .append("\n");
+        }
+        return sb.toString();
+    }
+
+    public String getRelatorioAtividades() {
+        final var relatorio = getRelatorio();
+        final var sb = new StringBuilder();
+        for (RelatorioTarefa relatorioTarefa : relatorio.getRelatorioTarefa()) {
+            sb.append("- Redmine ")
+                    .append("#")
+                    .append(relatorioTarefa.getCodigo())
+                    .append(" - ")
+                    .append(relatorioTarefa.getEvento())
+                    .append(" - ")
+                    .append(relatorioTarefa.getAtividade())
+                    .append("\n");
+        }
+        return sb.toString();
     }
 }

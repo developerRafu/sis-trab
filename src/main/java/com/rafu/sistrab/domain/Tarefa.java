@@ -1,5 +1,6 @@
 package com.rafu.sistrab.domain;
 
+import com.rafu.sistrab.domain.enums.AtividadeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,4 +19,8 @@ public class Tarefa {
     @Column(nullable = false)
     private Integer codigo;
     private Integer horas;
+    private String evento;
+    private String inicio;
+    private String fim;
+    private AtividadeEnum atividade;
 }

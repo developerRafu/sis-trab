@@ -12,4 +12,8 @@ public class RelatorioTarefa {
     private Long horas;
     private BigDecimal total;
     private String descricao;
+    private String evento;
+    private String inicio;
+    private String fim;
+    private String atividade;
 }
