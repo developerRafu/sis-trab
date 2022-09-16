@@ -17,7 +17,7 @@ public class Tarefa {
     @Column(nullable = false)
     private String descricao;
     @Column(nullable = false)
-    private Integer codigo;
+    private String codigo;
     private Integer horas;
     private String evento;
     private String inicio;

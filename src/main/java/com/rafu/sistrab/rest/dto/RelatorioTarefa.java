@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class RelatorioTarefa {
-    private Integer codigo;
+    private String codigo;
     private Long horas;
     private BigDecimal total;
     private String descricao;

@@ -57,9 +57,8 @@ public class TarefaService {
         final var codigos = tarefas.stream().map(Tarefa::getCodigo).collect(Collectors.toList());
         final var tarefasFound = repository.findAllByCodigo(codigos);
 
-        final List<Tarefa> tarefasToSave = new ArrayList<>();
+        final List<Tarefa> tarefasToSave = new ArrayList<>(tarefas);
 
-        tarefasToSave.addAll(tarefas);
         for (Tarefa tarefaToSave : tarefasToSave) {
             for (Tarefa tarefaFound : tarefasFound) {
                 if (tarefaToSave.getCodigo().equals(tarefaFound.getCodigo())) {

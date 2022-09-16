@@ -8,7 +8,7 @@ import lombok.Setter;
 public class TarefaDto {
     private Long id;
     private String descricao;
-    private Integer codigo;
+    private String codigo;
     private Integer horas;
     private String evento;
     private String inicio;

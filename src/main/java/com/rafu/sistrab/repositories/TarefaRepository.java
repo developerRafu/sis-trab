@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface TarefaRepository extends JpaRepository<Tarefa, Long> {
     @Query("SELECT t FROM Tarefa t WHERE t.codigo IN (:codigos)")
-    List<Tarefa> findAllByCodigo(@Param("codigos") List<Integer> codigos);
+    List<Tarefa> findAllByCodigo(@Param("codigos") List<String> codigos);
 
-    Optional<Tarefa> findByCodigo(Integer codigo);
+    Optional<Tarefa> findByCodigo(String codigo);
 }
