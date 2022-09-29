@@ -7,9 +7,10 @@ import java.util.Arrays;
 @Getter
 public enum AtividadeEnum {
     BACK_END(0, "Codificar back-end"),
-    FRONT_END(1, "Codificar-front"),
+    FRONT_END(1, "Codificar front-end"),
     BANCO_DE_DADOS(2, "Rodar scripts no banco de dados"),
-    BACK_FRONT(3, "Codificar back-end e front-end");
+    BACK_FRONT(3, "Codificar back-end e front-end"),
+    RESOLUCAO_BUG(4, "Resolução de bug");
 
     private final int id;
     private final String descricao;

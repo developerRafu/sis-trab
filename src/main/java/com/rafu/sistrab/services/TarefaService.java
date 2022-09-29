@@ -109,7 +109,7 @@ public class TarefaService {
         final var relatorio = getRelatorio();
         final var sb = new StringBuilder();
         for (RelatorioTarefa relatorioTarefa : relatorio.getRelatorioTarefa()) {
-            sb.append("- Redmine ")
+            sb.append("- Jira ")
                     .append("#")
                     .append(relatorioTarefa.getCodigo())
                     .append(" - ")
@@ -124,7 +124,7 @@ public class TarefaService {
         final var relatorio = getRelatorio();
         final var sb = new StringBuilder();
         for (RelatorioTarefa relatorioTarefa : relatorio.getRelatorioTarefa()) {
-            sb.append("- Redmine ")
+            sb.append("- Jira ")
                     .append("#")
                     .append(relatorioTarefa.getCodigo())
                     .append(" - ")
