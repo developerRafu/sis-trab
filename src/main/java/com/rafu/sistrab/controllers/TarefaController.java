@@ -3,6 +3,8 @@ package com.rafu.sistrab.controllers;
 import com.rafu.sistrab.domain.Tarefa;
 import com.rafu.sistrab.errors.NotFoundException;
 import com.rafu.sistrab.mappers.TarefaMapper;
+import com.rafu.sistrab.rest.dto.FuncionalidadeHoraDto;
+import com.rafu.sistrab.rest.dto.Funcionalidades;
 import com.rafu.sistrab.rest.dto.RelatorioTarefasDto;
 import com.rafu.sistrab.rest.dto.TarefaDto;
 import com.rafu.sistrab.services.TarefaService;
@@ -69,17 +71,23 @@ public class TarefaController {
     }
 
     @GetMapping("relatorio")
-    public ResponseEntity<RelatorioTarefasDto> getRelatorio(){
+    public ResponseEntity<RelatorioTarefasDto> getRelatorio() {
         return ResponseEntity.ok().body(service.getRelatorio());
     }
 
     @GetMapping("relatorio/plano")
-    public ResponseEntity<String> getRelatorioPlano(){
+    public ResponseEntity<String> getRelatorioPlano() {
         return ResponseEntity.ok().body(service.getRelatorioPlano());
     }
 
     @GetMapping("relatorio/atividade")
-    public ResponseEntity<String> getRelatorioAtividades(){
+    public ResponseEntity<String> getRelatorioAtividades() {
         return ResponseEntity.ok().body(service.getRelatorioAtividades());
+    }
+
+    @GetMapping("relatorio/funcionalidades")
+    public ResponseEntity<Funcionalidades> getFuncionalidadesPorHora() {
+        final var result = new Funcionalidades(service.getFuncionalidadesPorHora());
+        return ResponseEntity.ok().body(result);
     }
 }

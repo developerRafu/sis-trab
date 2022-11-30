@@ -3,6 +3,7 @@ package com.rafu.sistrab.services;
 import com.rafu.sistrab.domain.Tarefa;
 import com.rafu.sistrab.errors.NotFoundException;
 import com.rafu.sistrab.repositories.TarefaRepository;
+import com.rafu.sistrab.rest.dto.FuncionalidadeHoraDto;
 import com.rafu.sistrab.rest.dto.RelatorioTarefa;
 import com.rafu.sistrab.rest.dto.RelatorioTarefasDto;
 import lombok.RequiredArgsConstructor;
@@ -135,4 +136,29 @@ public class TarefaService {
         }
         return sb.toString();
     }
+
+    public List<FuncionalidadeHoraDto> getFuncionalidadesPorHora() {
+        final var result = repository.findAll();
+        final List<FuncionalidadeHoraDto> lista = new ArrayList<>();
+        for (final Tarefa tarefa : result) {
+            final var funcionalidade = FuncionalidadeHoraDto
+                    .builder()
+                    .funcionalidade(tarefa.getEvento())
+                    .periodo(tarefa.getHoras())
+                    .tipoAtividade(tarefa.getAtividade().getType())
+                    .build();
+            if(lista.stream().anyMatch(o->o.getFuncionalidade().equals(funcionalidade.getFuncionalidade()))){
+                lista.stream().filter(o->o.getFuncionalidade().equals(funcionalidade.getFuncionalidade())).forEach(o-> updatePeriodo(o, funcionalidade));
+            }else{
+                lista.add(funcionalidade);
+            }
+        }
+        return lista;
+    }
+
+    private void updatePeriodo(final FuncionalidadeHoraDto o, final FuncionalidadeHoraDto funcionalidade) {
+        o.setPeriodo(o.getPeriodo() + funcionalidade.getPeriodo());
+    }
+
+
 }

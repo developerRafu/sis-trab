@@ -3,6 +3,7 @@ package com.rafu.sistrab.domain.enums;
 import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Getter
 public enum AtividadeEnum {
@@ -25,5 +26,13 @@ public enum AtividadeEnum {
                 .filter(a -> a.getId() == id)
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Valor inválido"));
+    }
+
+    public String getType() {
+        if (this.id == 4) {
+            return "Correção de bug";
+        } else {
+            return "Desenvolvimento";
+        }
     }
 }
