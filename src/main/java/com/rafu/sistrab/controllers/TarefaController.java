@@ -3,10 +3,7 @@ package com.rafu.sistrab.controllers;
 import com.rafu.sistrab.domain.Tarefa;
 import com.rafu.sistrab.errors.NotFoundException;
 import com.rafu.sistrab.mappers.TarefaMapper;
-import com.rafu.sistrab.rest.dto.FuncionalidadeHoraDto;
-import com.rafu.sistrab.rest.dto.Funcionalidades;
-import com.rafu.sistrab.rest.dto.RelatorioTarefasDto;
-import com.rafu.sistrab.rest.dto.TarefaDto;
+import com.rafu.sistrab.rest.dto.*;
 import com.rafu.sistrab.services.TarefaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +86,10 @@ public class TarefaController {
     public ResponseEntity<Funcionalidades> getFuncionalidadesPorHora() {
         final var result = new Funcionalidades(service.getFuncionalidadesPorHora());
         return ResponseEntity.ok().body(result);
+    }
+
+    @PostMapping("ponto")
+    public ResponseEntity<Void> postPonto(@RequestBody PontoRequest request){
+        return null;
     }
 }
