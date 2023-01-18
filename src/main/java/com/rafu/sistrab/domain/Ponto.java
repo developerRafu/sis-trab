@@ -17,9 +17,10 @@ public class Ponto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime hora;
     private String tarefa;
     private String descricao;
     private BigDecimal saldoHoras;
-    private BigDecimal taxa;
+    private LocalDateTime inicio;
+    private LocalDateTime fim;
+    private BigDecimal total;
 }

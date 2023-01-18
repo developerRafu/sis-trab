@@ -10,9 +10,10 @@ import java.time.LocalDateTime;
 @Setter
 public class PontoResponse {
     private Long id;
-    private LocalDateTime hora;
     private String tarefa;
     private String descricao;
     private BigDecimal saldoHoras;
-    private BigDecimal taxa;
+    private LocalDateTime inicio;
+    private LocalDateTime fim;
+    private BigDecimal total;
 }
