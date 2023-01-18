@@ -18,28 +18,28 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PontoService {
     private final PontoRepository repository;
-    private final BigDecimal TAXA = BigDecimal.valueOf(70.0);
-    private final BigDecimal HORAS_MAX_PER_DAY = BigDecimal.valueOf(4.0);
+    private final AuthService authService;
 
     public Ponto save(final Ponto ponto) {
         final var pontoId = repository.findByTarefa(ponto.getTarefa()).map(Ponto::getId).orElse(null);
+        final var user = authService.loadUser();
         ponto.setId(pontoId);
         if (ponto.getSaldoHoras() != null) {
-            ponto.setTotal(ponto.getSaldoHoras().multiply(TAXA));
+            ponto.setTotal(ponto.getSaldoHoras().multiply(user.getTaxa()));
             return repository.save(ponto);
         }
         final var diffDays = ChronoUnit.DAYS.between(ponto.getInicio(), ponto.getFim());
         if (diffDays < 0) {
             throw new InvalidPontoException();
         }
-        var saldo = BigDecimal.valueOf(diffDays).multiply(HORAS_MAX_PER_DAY);
+        var saldo = BigDecimal.valueOf(diffDays).multiply(user.getHorasMax());
         if (ponto.getFim().isAfter(ponto.getInicio().plusDays(diffDays))) {
-            saldo = saldo.add(HORAS_MAX_PER_DAY);
+            saldo = saldo.add(user.getHorasMax());
         }
         if (diffDays == 0) {
-            saldo = HORAS_MAX_PER_DAY;
+            saldo = user.getHorasMax();
         }
-        var total = saldo.multiply(TAXA);
+        var total = saldo.multiply(user.getTaxa());
         ponto.setSaldoHoras(saldo);
         ponto.setTotal(total);
         repository.save(ponto);

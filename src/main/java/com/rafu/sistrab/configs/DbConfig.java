@@ -8,15 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.math.BigDecimal;
+
 @Configuration
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DbConfig {
-  private final AuthService authService;
+    private final AuthService authService;
 
-  @Bean
-  public TokenResponse saveFirstUser() {
-    final var request =
-        RegisterRequest.builder().name("first user").email("user@mail.com").password("123").build();
-    return authService.register(request);
-  }
+    @Bean
+    public TokenResponse saveFirstUser() {
+        final var request =
+                RegisterRequest.builder().name("first user").email("user@mail.com").password("123").taxa(BigDecimal.valueOf(70.0).toString()).horasMax(BigDecimal.valueOf(4).toString()).build();
+        return authService.register(request);
+    }
 }

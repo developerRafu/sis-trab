@@ -1,6 +1,6 @@
 package com.rafu.sistrab.filters;
 
-import com.rafu.sistrab.domain.enums.RequestEnums;
+import com.rafu.sistrab.vo.enums.RequestEnums;
 import com.rafu.sistrab.services.JWTUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

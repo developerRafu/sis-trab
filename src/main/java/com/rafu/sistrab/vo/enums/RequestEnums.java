@@ -1,4 +1,4 @@
-package com.rafu.sistrab.domain.enums;
+package com.rafu.sistrab.vo.enums;
 
 import lombok.Getter;
 

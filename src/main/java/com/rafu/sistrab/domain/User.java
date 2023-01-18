@@ -4,6 +4,7 @@ import com.rafu.sistrab.domain.enums.Profile;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,18 +17,20 @@ import java.util.Set;
 @EqualsAndHashCode
 @Table(name = "TAB_USER")
 public class User {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  private String name;
+    private String name;
 
-  @Column(unique = true)
-  private String email;
+    @Column(unique = true)
+    private String email;
 
-  private String password;
+    private String password;
+    private BigDecimal taxa;
+    private BigDecimal horasMax;
 
-  @ElementCollection(fetch = FetchType.EAGER)
-  @CollectionTable
-  private Set<Profile> profiles = new HashSet<>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable
+    private Set<Profile> profiles = new HashSet<>();
 }
