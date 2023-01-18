@@ -1,8 +1,7 @@
 package com.rafu.sistrab.rest.dto;
 
-import lombok.*;
-
 import java.math.BigDecimal;
+import lombok.*;
 
 @Getter
 @Setter
@@ -10,9 +9,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PontoRequest {
-    private String tarefa;
-    private String descricao;
-    private String inicio;
-    private String fim;
-    private BigDecimal saldoHoras;
+  private String tarefa;
+  private String descricao;
+  private String inicio;
+  private String fim;
+  private BigDecimal saldoHoras;
 }

@@ -1,8 +1,7 @@
 package com.rafu.sistrab.rest.dto;
 
-import lombok.*;
-
 import java.math.BigDecimal;
+import lombok.*;
 
 @Getter
 @Setter
@@ -10,9 +9,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class InvestimentoResponse {
-    private Long meses;
-    private BigDecimal valor;
-    private BigDecimal valorInicial;
-    private BigDecimal taxaMensal;
-    private BigDecimal total;
+  private Long meses;
+  private BigDecimal valor;
+  private BigDecimal valorInicial;
+  private BigDecimal taxaMensal;
+  private BigDecimal total;
 }

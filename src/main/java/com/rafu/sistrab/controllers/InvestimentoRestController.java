@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/investimentos")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class InvestimentoRestController {
-    private final InvestimentoService service;
-    private final InvestimentoMapper mapper;
+  private final InvestimentoService service;
+  private final InvestimentoMapper mapper;
 
-    @PostMapping
-    public ResponseEntity<InvestimentoResponse> post(@RequestBody final Investimento investimento) {
-        final var total = service.calculate(investimento);
-        return ResponseEntity.ok(mapper.toInvestimentoResponseWithTotal(investimento, total));
-    }
+  @PostMapping
+  public ResponseEntity<InvestimentoResponse> post(@RequestBody final Investimento investimento) {
+    final var total = service.calculate(investimento);
+    return ResponseEntity.ok(mapper.toInvestimentoResponseWithTotal(investimento, total));
+  }
 }
