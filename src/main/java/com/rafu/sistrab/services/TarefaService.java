@@ -135,7 +135,7 @@ public class TarefaService {
           .append("#")
           .append(relatorioTarefa.getCodigo())
           .append(" - ")
-          .append(relatorioTarefa.getEvento())
+          .append(relatorioTarefa.getDescricao())
           .append(" - ")
           .append(relatorioTarefa.getAtividade())
           .append("\n");

@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-    private static final String[] PUBLIC_MATCHERS = {"/api/v1/auth/**", "/h2-console/**"};
+    private static final String[] PUBLIC_MATCHERS = {"/v1/auth/**", "/h2-console/**"};
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
