@@ -6,18 +6,18 @@ import com.rafu.sistrab.mappers.TarefaMapper;
 import com.rafu.sistrab.rest.dto.Funcionalidades;
 import com.rafu.sistrab.rest.dto.RelatorioTarefasDto;
 import com.rafu.sistrab.rest.dto.TarefaDto;
+import com.rafu.sistrab.rest.dto.XLS;
 import com.rafu.sistrab.services.TarefaService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/tarefas")
@@ -98,4 +98,14 @@ public class TarefaController {
     return ResponseEntity.ok().body(result);
   }
 
+  @GetMapping("relatorio/documento")
+  public ResponseEntity<XLS> getXLS() {
+    return ResponseEntity.ok()
+        .body(new XLS(service.getRelatorioXLS(), "application/vnd.ms-excel", "xls"));
+  }
+
+  @GetMapping("relatorio/csv")
+  public ResponseEntity<String> getCSV() {
+    return ResponseEntity.ok().body(service.getRelatorioCSV());
+  }
 }

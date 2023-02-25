@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserDetailServiceImpl implements UserDetailsService {
-    private final UserService userService;
+  private final UserService userService;
 
-    @Override
-    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        return userService
-                .findByEmail(username)
-                .map(UserDetailsImpl::new)
-                .orElseThrow(() -> new UserNotFound(username));
-    }
+  @Override
+  public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+    return userService
+        .findByEmail(username)
+        .map(UserDetailsImpl::new)
+        .orElseThrow(() -> new UserNotFound(username));
+  }
 }

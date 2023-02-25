@@ -17,11 +17,13 @@ class PontoServiceTest {
 
   PontoRepository repository;
   PontoService service;
+  AuthService authService;
 
   @BeforeEach
   void setUp() {
     repository = mock(PontoRepository.class);
-    service = new PontoService(repository);
+    authService = mock(AuthService.class);
+    service = new PontoService(repository, authService);
   }
 
   @Test

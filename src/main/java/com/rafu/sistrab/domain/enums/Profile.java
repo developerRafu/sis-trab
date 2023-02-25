@@ -1,8 +1,7 @@
 package com.rafu.sistrab.domain.enums;
 
-import lombok.Getter;
-
 import java.util.Set;
+import lombok.Getter;
 
 @Getter
 public enum Profile {

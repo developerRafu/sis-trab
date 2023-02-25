@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TarefaService {
   private final TarefaRepository repository;
+  private final DocumentoService documentoService;
 
   public Page<Tarefa> findAllPageable(int page) {
     Pageable pageable = PageRequest.of(page, 10);
@@ -102,6 +103,7 @@ public class TarefaService {
                   relatorioTarefa.setFim(tarefa.getFim());
                   relatorioTarefa.setEvento(tarefa.getEvento());
                   relatorioTarefa.setAtividade(tarefa.getAtividade().getDescricao());
+                  relatorioTarefa.setTarefaMae(tarefa.getTarefaMae());
                   return relatorioTarefa;
                 })
             .collect(Collectors.toList());
@@ -165,8 +167,16 @@ public class TarefaService {
     return lista;
   }
 
+  public byte[] getRelatorioXLS() {
+    return documentoService.getRelatorio(repository.findAll()).toByteArray();
+  }
+
   private void updatePeriodo(
       final FuncionalidadeHoraDto o, final FuncionalidadeHoraDto funcionalidade) {
     o.setPeriodo(o.getPeriodo() + funcionalidade.getPeriodo());
+  }
+
+  public String getRelatorioCSV() {
+    return documentoService.getRelatorioCSV(getRelatorio());
   }
 }

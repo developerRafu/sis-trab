@@ -15,4 +15,5 @@ public class RelatorioTarefa {
   private String inicio;
   private String fim;
   private String atividade;
+  private String tarefaMae;
 }

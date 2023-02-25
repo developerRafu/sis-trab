@@ -1,8 +1,7 @@
 package com.rafu.sistrab.vo;
 
-import lombok.*;
-
 import java.math.BigDecimal;
+import lombok.*;
 
 @Getter
 @Setter
@@ -10,9 +9,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class UserAuth {
-    private Long id;
-    private String name;
-    private String email;
-    private BigDecimal taxa;
-    private BigDecimal horasMax;
+  private Long id;
+  private String name;
+  private String email;
+  private BigDecimal taxa;
+  private BigDecimal horasMax;
 }
