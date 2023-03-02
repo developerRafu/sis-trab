@@ -104,6 +104,7 @@ public class TarefaService {
                   relatorioTarefa.setEvento(tarefa.getEvento());
                   relatorioTarefa.setAtividade(tarefa.getAtividade().getDescricao());
                   relatorioTarefa.setTarefaMae(tarefa.getTarefaMae());
+                  relatorioTarefa.setTipoTarefa(tarefa.getTipoTarefa());
                   return relatorioTarefa;
                 })
             .collect(Collectors.toList());

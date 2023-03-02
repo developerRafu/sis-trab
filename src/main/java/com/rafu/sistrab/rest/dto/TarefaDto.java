@@ -15,4 +15,5 @@ public class TarefaDto {
   private String fim;
   private int atividadeId;
   private String tarefaMae;
+  private String tipoTarefa;
 }

@@ -26,4 +26,5 @@ public class Tarefa {
   private String fim;
   private AtividadeEnum atividade;
   private String tarefaMae;
+  private String tipoTarefa;
 }
