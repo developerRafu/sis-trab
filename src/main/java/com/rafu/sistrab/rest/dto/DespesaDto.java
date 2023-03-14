@@ -4,9 +4,8 @@ import com.rafu.sistrab.domain.enums.DespesaTipo;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.*;
-
 import java.math.BigDecimal;
+import lombok.*;
 
 @Getter
 @Setter
@@ -14,9 +13,10 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class DespesaDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private BigDecimal montante;
-    private DespesaTipo tipo;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  private BigDecimal montante;
+  private DespesaTipo tipo;
 }

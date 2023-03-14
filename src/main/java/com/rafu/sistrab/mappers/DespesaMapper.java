@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface DespesaMapper {
-    Despesa toDespesa(final DespesaDto dto);
-    DespesaDto toDespesaDto(final Despesa Despesa);
+  Despesa toDespesa(final DespesaDto dto);
+
+  DespesaDto toDespesaDto(final Despesa Despesa);
 }

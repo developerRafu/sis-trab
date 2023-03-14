@@ -1,8 +1,7 @@
 package com.rafu.sistrab.rest.dto;
 
-import lombok.*;
-
 import java.math.BigDecimal;
+import lombok.*;
 
 @Getter
 @Setter
@@ -10,7 +9,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class DespesaCalDto {
-    private BigDecimal rendaTotal;
-    private BigDecimal despesasTotais;
-    private BigDecimal economiaTotal;
+  private BigDecimal rendaTotal;
+  private BigDecimal despesasTotais;
+  private BigDecimal economiaTotal;
 }
