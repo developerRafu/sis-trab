@@ -2,6 +2,8 @@ package com.rafu.sistrab.controllers;
 
 import com.rafu.sistrab.domain.Investimento;
 import com.rafu.sistrab.mappers.InvestimentoMapper;
+import com.rafu.sistrab.rest.dto.AcoesAnosRequest;
+import com.rafu.sistrab.rest.dto.AcoesResponse;
 import com.rafu.sistrab.rest.dto.InvestimentoResponse;
 import com.rafu.sistrab.services.InvestimentoService;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/investimentos")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class InvestimentoRestController {
-  private final InvestimentoService service;
-  private final InvestimentoMapper mapper;
+    private final InvestimentoService service;
+    private final InvestimentoMapper mapper;
 
-  @PostMapping
-  public ResponseEntity<InvestimentoResponse> post(@RequestBody final Investimento investimento) {
-    final var total = service.calculate(investimento);
-    return ResponseEntity.ok(mapper.toInvestimentoResponseWithTotal(investimento, total));
-  }
+    @PostMapping
+    public ResponseEntity<InvestimentoResponse> post(@RequestBody final Investimento investimento) {
+        final var total = service.calculate(investimento);
+        return ResponseEntity.ok(mapper.toInvestimentoResponseWithTotal(investimento, total));
+    }
+
+    @PostMapping("/acoes")
+    public ResponseEntity<AcoesResponse> postAcoes(@RequestBody final AcoesAnosRequest request) {
+        final var result = service.calculateAcoes(request);
+        return ResponseEntity.ok(result);
+    }
 }

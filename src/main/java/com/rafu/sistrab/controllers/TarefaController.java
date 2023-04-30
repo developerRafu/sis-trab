@@ -98,7 +98,7 @@ public class TarefaController {
     return ResponseEntity.ok().body(result);
   }
 
-  @GetMapping("relatorio/documento")
+  @GetMapping("relatorio/xls")
   public ResponseEntity<XLS> getXLS() {
     return ResponseEntity.ok()
         .body(new XLS(service.getRelatorioXLS(), "application/vnd.ms-excel", "xls"));
@@ -107,5 +107,10 @@ public class TarefaController {
   @GetMapping("relatorio/csv")
   public ResponseEntity<String> getCSV() {
     return ResponseEntity.ok().body(service.getRelatorioCSV());
+  }
+
+  @GetMapping("relatorio/documento")
+  public ResponseEntity<String> getDocumento() {
+    return ResponseEntity.ok().body(service.getResponseCSV());
   }
 }
