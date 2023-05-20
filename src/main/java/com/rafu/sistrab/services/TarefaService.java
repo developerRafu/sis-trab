@@ -72,18 +72,19 @@ public class TarefaService {
                     tarefaToSave.setId(tarefaFound.getId());
                     tarefaToSave.setCodigo(tarefaFound.getCodigo());
                 }
-                tarefaToSave.setHoras(getHoras(tarefaToSave));
             }
         }
+
+        tarefasToSave.forEach(this::setHoras);
 
         return repository.saveAll(tarefasToSave);
     }
 
-    private Long getHoras(Tarefa tarefaToSave) {
+    private void setHoras(Tarefa tarefaToSave) {
         if (!tarefaToSave.isCalcHours()) {
-            return tarefaToSave.getHoras();
+            tarefaToSave.setHoras(tarefaToSave.getHoras());
         }
-        return ChronoUnit.DAYS.between(tarefaToSave.getInicio(), tarefaToSave.getFim().plusDays(1L)) * 7L;
+        tarefaToSave.setHoras(ChronoUnit.DAYS.between(tarefaToSave.getInicio(), tarefaToSave.getFim().plusDays(1L)) * 7L);
     }
 
     public RelatorioTarefasDto getRelatorio() {
