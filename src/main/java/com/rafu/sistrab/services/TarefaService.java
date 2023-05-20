@@ -8,6 +8,8 @@ import com.rafu.sistrab.rest.dto.RelatorioTarefa;
 import com.rafu.sistrab.rest.dto.RelatorioTarefasDto;
 
 import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
 public class TarefaService {
     private final TarefaRepository repository;
     private final DocumentoService documentoService;
+    private final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Page<Tarefa> findAllPageable(int page) {
         Pageable pageable = PageRequest.of(page, 10);
@@ -69,10 +72,18 @@ public class TarefaService {
                     tarefaToSave.setId(tarefaFound.getId());
                     tarefaToSave.setCodigo(tarefaFound.getCodigo());
                 }
+                tarefaToSave.setHoras(getHoras(tarefaToSave));
             }
         }
 
         return repository.saveAll(tarefasToSave);
+    }
+
+    private Long getHoras(Tarefa tarefaToSave) {
+        if (!tarefaToSave.isCalcHours()) {
+            return tarefaToSave.getHoras();
+        }
+        return ChronoUnit.DAYS.between(tarefaToSave.getInicio(), tarefaToSave.getFim().plusDays(1L)) * 7L;
     }
 
     public RelatorioTarefasDto getRelatorio() {
@@ -101,8 +112,8 @@ public class TarefaService {
                                     relatorioTarefa.setTotal(
                                             BigDecimal.valueOf(70).multiply(BigDecimal.valueOf(tarefa.getHoras())));
                                     relatorioTarefa.setDescricao(tarefa.getDescricao());
-                                    relatorioTarefa.setInicio(tarefa.getInicio());
-                                    relatorioTarefa.setFim(tarefa.getFim());
+                                    relatorioTarefa.setInicio(tarefa.getInicio().format(FORMATTER));
+                                    relatorioTarefa.setFim(tarefa.getFim().format(FORMATTER));
                                     relatorioTarefa.setEvento(tarefa.getEvento());
                                     relatorioTarefa.setAtividade(tarefa.getAtividade().getDescricao());
                                     relatorioTarefa.setTarefaMae(tarefa.getTarefaMae());

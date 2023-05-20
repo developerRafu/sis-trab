@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Funcionalidades {
   private List<FuncionalidadeHoraDto> funcionalidades;
 
-  public Integer getTotal() {
-    return funcionalidades.stream().mapToInt(FuncionalidadeHoraDto::getPeriodo).sum();
+  public Long getTotal() {
+    return funcionalidades.stream().mapToLong(FuncionalidadeHoraDto::getPeriodo).sum();
   }
 }

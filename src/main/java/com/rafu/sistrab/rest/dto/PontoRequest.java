@@ -14,4 +14,5 @@ public class PontoRequest {
   private String inicio;
   private String fim;
   private BigDecimal saldoHoras;
+  private Boolean isCalcHours;
 }

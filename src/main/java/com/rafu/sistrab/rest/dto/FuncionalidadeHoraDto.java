@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "periodo")
 public class FuncionalidadeHoraDto {
-  private Integer periodo;
+  private Long periodo;
   private String funcionalidade;
   private String tipoAtividade;
 }

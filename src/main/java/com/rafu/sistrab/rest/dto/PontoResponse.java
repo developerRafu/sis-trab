@@ -14,4 +14,5 @@ public class PontoResponse {
   private String inicio;
   private String fim;
   private BigDecimal total;
+  private Integer dias;
 }

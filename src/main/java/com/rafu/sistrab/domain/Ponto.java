@@ -23,4 +23,6 @@ public class Ponto {
   private LocalDateTime inicio;
   private LocalDateTime fim;
   private BigDecimal total;
+  @Transient
+  private boolean isCalcHours;
 }

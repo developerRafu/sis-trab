@@ -5,38 +5,41 @@ import static java.time.temporal.ChronoUnit.DAYS;
 import com.rafu.sistrab.domain.Tarefa;
 import com.rafu.sistrab.domain.enums.AtividadeEnum;
 import com.rafu.sistrab.rest.dto.TarefaDto;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface TarefaMapper {
-  TarefaDto toDto(Tarefa tarefa);
+    DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-  Tarefa toEntity(TarefaDto dto);
+    TarefaDto toDto(Tarefa tarefa);
 
-  default Tarefa convert(TarefaDto dto) {
-    final var entity = toEntity(dto);
-    entity.setAtividade(AtividadeEnum.of(dto.getAtividadeId()));
-    final var inicio = dto.getInicio();
-    final var fim = dto.getFim();
-    if (dto.getHoras() == null) {
-      final var dateInicio =
-          LocalDate.of(
-              LocalDate.now().getYear(),
-              getInt(inicio.substring(3, 5)),
-              getInt(inicio.substring(0, 2)));
-      final var dateFim =
-          LocalDate.of(
-              LocalDate.now().getYear(), getInt(fim.substring(3, 5)), getInt(fim.substring(0, 2)));
-      final long horas = DAYS.between(dateInicio, dateFim) * 4;
-      entity.setHoras(Integer.parseInt(Long.toString(horas)));
-    } else {
-      entity.setHoras(dto.getHoras());
+    @Mapping(target = "inicio", ignore = true)
+    @Mapping(target = "fim", ignore = true)
+    Tarefa toEntity(TarefaDto dto);
+
+    default Tarefa convert(TarefaDto dto) {
+        final var entity = toEntity(dto);
+        entity.setAtividade(AtividadeEnum.of(dto.getAtividadeId()));
+
+        final var dateInicio = LocalDate.parse(getInicio(dto.getInicio()), FORMATTER);
+        final var dateFim = LocalDate.parse(getInicio(dto.getFim()), FORMATTER);
+        entity.setInicio(dateInicio);
+        entity.setFim(dateFim);
+        entity.setCalcHours(Objects.equals(dto.getIsCalcHours(), Boolean.TRUE));
+        return entity;
     }
-    return entity;
-  }
 
-  default int getInt(String string) {
-    return Integer.parseInt(string);
-  }
+    private static String getInicio(String date) {
+        return String.format("%s/%s", date, LocalDate.now().getYear());
+    }
+
+    default int getInt(String string) {
+        return Integer.parseInt(string);
+    }
 }
