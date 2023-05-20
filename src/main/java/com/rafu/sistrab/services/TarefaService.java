@@ -83,6 +83,7 @@ public class TarefaService {
     private void setHoras(Tarefa tarefaToSave) {
         if (!tarefaToSave.isCalcHours()) {
             tarefaToSave.setHoras(tarefaToSave.getHoras());
+            return;
         }
         tarefaToSave.setHoras(ChronoUnit.DAYS.between(tarefaToSave.getInicio(), tarefaToSave.getFim().plusDays(1L)) * 7L);
     }
