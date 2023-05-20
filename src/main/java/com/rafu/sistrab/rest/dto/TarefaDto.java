@@ -17,6 +17,6 @@ public class TarefaDto {
     private int atividadeId;
     private String tarefaMae;
     private String tipoTarefa;
-    @JsonProperty(defaultValue = "true")
+    @JsonProperty(defaultValue = "false")
     private Boolean isCalcHours;
 }
