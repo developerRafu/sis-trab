@@ -19,4 +19,7 @@ public class TarefaDto {
     private String tipoTarefa;
     @JsonProperty(defaultValue = "false")
     private Boolean isCalcHours;
+
+    @JsonProperty(defaultValue = "false")
+    private Boolean ignore = false;
 }

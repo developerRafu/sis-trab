@@ -32,4 +32,6 @@ public class Tarefa {
 
     @Transient
     private boolean isCalcHours;
+
+    private boolean ignore = false;
 }

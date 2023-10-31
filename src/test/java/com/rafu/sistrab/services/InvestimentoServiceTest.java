@@ -1,7 +1,9 @@
 package com.rafu.sistrab.services;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
+import com.rafu.sistrab.clients.BrApiClient;
 import com.rafu.sistrab.domain.Investimento;
 
 import java.math.BigDecimal;
@@ -15,11 +17,13 @@ import org.mapstruct.factory.Mappers;
 class InvestimentoServiceTest {
     InvestimentoService service;
     AcoesMapper mapper;
+    BrApiClient brApiClient;
 
     @BeforeEach
     void setUp() {
         mapper = Mappers.getMapper(AcoesMapper.class);
-        service = new InvestimentoService(mapper);
+        brApiClient = mock(BrApiClient.class);
+        service = new InvestimentoService(mapper, brApiClient);
     }
 
     @Test

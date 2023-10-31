@@ -89,7 +89,7 @@ public class TarefaService {
     }
 
     public RelatorioTarefasDto getRelatorio() {
-        final var tarefas = repository.findAll();
+        final var tarefas = repository.findAllByIgnoreFalse();
         final var relatorio = new RelatorioTarefasDto();
 
         final var total =
